@@ -118,6 +118,7 @@ export default function Home() {
 
   useEffect(function(){
     function onAnswer({answer}:{answer:RTCSessionDescription}){
+      console.log("remote answer: ",answer)
       peerconnection.current?.setRemoteDescription(answer);
     }
     if(socket.current){
