@@ -138,7 +138,10 @@ export default function Home() {
   function startConnection(){
     setBootState("booting");
     const userID = generateConnectID();
-    socket.current = io(SIGNAL_URI);
+    socket.current = io(SIGNAL_URI,{
+      reconnectionAttempts:10,
+      reconnectionDelay:500,      
+    });
     socket.current.on("connect_error",(error)=>{
       console.log(error)
     });
