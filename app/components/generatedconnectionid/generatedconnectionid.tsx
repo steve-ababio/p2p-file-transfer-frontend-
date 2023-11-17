@@ -35,5 +35,5 @@ const  GeneratedConnectionID = React.forwardRef<HTMLSpanElement,GeneratedConnect
           </div>
     )
 });
-
+GeneratedConnectionID.displayName = "GeneratedConnectionID";
 export default GeneratedConnectionID;

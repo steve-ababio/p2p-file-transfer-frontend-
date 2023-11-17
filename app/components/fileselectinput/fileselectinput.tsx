@@ -17,10 +17,11 @@ interface SelectProps{
                 type="file"
                 name="file"
                 ref={ref}
-            className="w-0 h-0 absolute"
+                 className="w-0 h-0 absolute"    
             />
         </button>
     )
-})
+});
+FileSelectInput.displayName = "FileSelectInput";
 
 export default FileSelectInput;
