@@ -190,6 +190,7 @@ export default function Home() {
     if(remotepeerID !== ""){
       socket.current?.emit("checkpeerexistence",{peerID:remotepeerID});
       socket.current?.on("peerexists",function({peerexists}:{peerexists:boolean}){
+        console.log("peerexists: ",peerexists);
         if(peerexists){
           if(connectionstateerror !== ""){
             setConnectionStateError("");
