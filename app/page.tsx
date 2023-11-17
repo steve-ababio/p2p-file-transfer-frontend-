@@ -53,9 +53,6 @@ export default function Home() {
   const tooltiptimeoutid = useRef(0);
   const receivedfiletotalsize = useRef(0);
 
-  function handleDataChannelStatus(e:Event,datachannel:RTCDataChannel){
-    
-  }
   function receiveFile({data}:MessageEvent,filechunks:ArrayBuffer[]){
     if(data instanceof ArrayBuffer){
       setChunkSizeDelivered(prev=>prev + (data.byteLength / receivedfiletotalsize.current) * 100);
@@ -100,8 +97,7 @@ export default function Home() {
               case "open":
                 datachannel.current?.addEventListener("message",(e:MessageEvent)=>receiveFile(e,filechunks));
             }
-          });
-            
+          });   
                           
         });
         await peerconnection.current?.setRemoteDescription(offer),
@@ -165,7 +161,11 @@ export default function Home() {
     });
     peerconnection.current?.addEventListener("iceconnectionstatechange",function(){
       console.log("iceconnectionstatechange: ",peerconnection.current?.iceConnectionState);
+
       if(peerconnection.current?.iceConnectionState === "failed"){
+        peerconnection.current.restartIce();
+      }
+      if(peerconnection.current?.iceConnectionState === "disconnected"){
         peerconnection.current.restartIce();
       }
     });
