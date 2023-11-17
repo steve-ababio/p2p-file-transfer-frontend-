@@ -54,17 +54,7 @@ export default function Home() {
   const receivedfiletotalsize = useRef(0);
 
   function handleDataChannelStatus(e:Event,datachannel:RTCDataChannel){
-    const datachannelstate = datachannel.readyState;
-    switch(datachannelstate){
-      case "connecting":
-        console.log("creating data channel with peer...");
-        break;
-      case "open":
-        console.log("Data channel with peer opened");
-        break;
-      case "closed":
-        console.log("Data channel closed")
-    }
+    
   }
   function receiveFile({data}:MessageEvent,filechunks:ArrayBuffer[]){
     if(data instanceof ArrayBuffer){
@@ -100,9 +90,19 @@ export default function Home() {
         setUserType("receiver");
         peerconnection.current?.addEventListener("datachannel",function({channel}:RTCDataChannelEvent){
           datachannel.current = channel;
-          datachannel.current.addEventListener("open",(e)=>handleDataChannelStatus(e,datachannel.current!));
+          datachannel.current.addEventListener("open",(e)=>{
+            const datachannelstate = datachannel.current?.readyState;
             let filechunks:ArrayBuffer[] = [];
-            datachannel.current.addEventListener("message",(e:MessageEvent)=>receiveFile(e,filechunks));              
+            switch(datachannelstate){
+              case "connecting":
+                console.log("creating data channel with peer...");
+                break;
+              case "open":
+                datachannel.current?.addEventListener("message",(e:MessageEvent)=>receiveFile(e,filechunks));
+            }
+          });
+            
+                          
         });
         await peerconnection.current?.setRemoteDescription(offer),
         await peerconnection.current?.setLocalDescription();
