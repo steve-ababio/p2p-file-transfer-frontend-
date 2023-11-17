@@ -27,7 +27,10 @@ const CHUNK_SIZE = BYTE_SIZE * 16;// 16 kilobytes
 const RTC_DATA_CHANNEL_LABEL = "FILE-TRANSFER";
 const HIGH_wATER_MARK = Math.floor(11 * 1024 * 1024);//11 megabytes
 
-const configuration = {'iceServers': [{'urls': 'stun:stun.l.google.com:19302'}]};
+const configuration = {'iceServers': [{'urls': 'stun:stun.l.google.com:19302'},
+                                      {'urls': 'stun:stun1.l.google.com:19302'},
+                                      {'urls': 'stun:stun2.l.google.com:19302'}
+                                    ]};
 export default function Home() {
   const [connectID,setConnectID] = useState("");
   const [tooltip,showTooltip] = useState(false);
