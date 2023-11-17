@@ -147,6 +147,7 @@ export default function Home() {
       console.log(error)
     });
     socket.current.on("icecandidate",function({icecandidate}){
+      console.log("remote icecandidate: ",icecandidate);
       peerconnection.current?.addIceCandidate(icecandidate);
     });
     socket.current.auth = {
