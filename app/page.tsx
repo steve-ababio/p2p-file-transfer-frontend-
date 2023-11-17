@@ -173,6 +173,10 @@ export default function Home() {
       setConnectionState(peerconnection.current!.connectionState);
       if(peerconnection.current?.connectionState === "failed"){
         setConnectionStateError(`Error connecting to peer ${remotepeerIDref.current}`);
+      }else{
+        if(connectionstateerror !== ""){
+          setConnectionStateError("");
+        }
       }
     });
     setBootState("booted");
