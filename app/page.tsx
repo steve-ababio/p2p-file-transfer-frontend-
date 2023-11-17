@@ -161,6 +161,7 @@ export default function Home() {
       }
     });
     peerconnection.current?.addEventListener("iceconnectionstatechange",function(){
+      console.log("iceconnectionstatechange: ",peerconnection.current?.iceConnectionState);
       if(peerconnection.current?.iceConnectionState === "failed"){
         peerconnection.current.restartIce();
       }
