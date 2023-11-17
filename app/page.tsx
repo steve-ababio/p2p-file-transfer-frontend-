@@ -153,6 +153,7 @@ export default function Home() {
     };
     peerconnection.current = new RTCPeerConnection(configuration);
     peerconnection.current?.addEventListener("icecandidate",function({candidate}){
+      console.log("local icecandidates: ",candidate);
       if(candidate){
         socket.current?.emit("icecandidate",{icecandidate:candidate,peerID:remotepeerIDref.current});
       }
@@ -197,6 +198,7 @@ export default function Home() {
             peerconnection.current?.addEventListener("negotiationneeded",async function(){
               try{
                 await peerconnection.current?.setLocalDescription();
+                console.log("offer: ",peerconnection.current?.localDescription);
                 socket.current?.emit("offer",{offer:peerconnection.current?.localDescription,peerID:remotepeerIDref.current});    
               }catch(err){
                 console.log(err);
