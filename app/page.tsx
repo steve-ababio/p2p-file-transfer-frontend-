@@ -225,7 +225,7 @@ export default function Home() {
     }
   }
   function generateConnectID(){
-    const {randomUUID} = new ShortUniqueId({length:8});
+    const {randomUUID} = new ShortUniqueId({length:6});
     const connectID = randomUUID();
     setConnectID(connectID);
     return connectID;
