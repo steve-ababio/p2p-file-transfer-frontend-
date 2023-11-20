@@ -1,10 +1,12 @@
 import SecondaryButton from "../button/secondarybutton";
+import SpinnerLoader from "../spinnerloader/spinnerloader";
 interface RemotePeerIDprops{ 
     disabled: boolean,
     connectToPeer:()=>void,
     getPeerID:(e: React.ChangeEvent<HTMLInputElement>)=>void,
+    connecting:boolean
 }
-export default function RemotePeerIDPane({disabled,connectToPeer,getPeerID}:RemotePeerIDprops){
+export default function RemotePeerIDPane({disabled,connectToPeer,getPeerID,connecting}:RemotePeerIDprops){
     return(
         <div className="flex gap-x-4 items-center">
             <input
@@ -21,6 +23,7 @@ export default function RemotePeerIDPane({disabled,connectToPeer,getPeerID}:Remo
             >
               Connect
             </SecondaryButton>
+            {connecting && <SpinnerLoader />}
         </div>
     )
 }

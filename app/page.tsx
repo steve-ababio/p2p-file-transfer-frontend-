@@ -73,9 +73,9 @@ export default function Home() {
         link.click();
         URL.revokeObjectURL(link.href); 
         setShowFileTransferProgress(false);
-        setChunkSizeDelivered(0);
-        toast.info(`file received from ${remotepeerID}`,{
-          delay:5000
+        setChunkSizeDelivered(0);;
+        toast.info(`file received from ${remotepeerIDref.current}`,{
+          autoClose:5000
         });
       }
     }
@@ -200,7 +200,6 @@ export default function Home() {
     if(remotepeerID !== ""){
       socket.current?.emit("checkpeerexistence",{peerID:remotepeerID});
       socket.current?.on("peerexists",function({peerexists}:{peerexists:boolean}){
-        console.log("peerexists: ",peerexists);
         if(peerexists){
           if(connectionstateerror !== ""){
             setConnectionStateError("");
@@ -244,7 +243,7 @@ export default function Home() {
     }
   }
   async function selectFile(e:React.ChangeEvent<HTMLInputElement>){
-    const units = ["B","KB","MB","GB",];
+    const units = ["B","KB","MB","GB"];
     const files = e.target.files!;
     const selectedfile = files[0];
     if(selectedfile){
@@ -333,7 +332,7 @@ export default function Home() {
             <h1 className="text-xl text-gray-600">P2P File Transfer</h1>
           </header>
           <div className="flex items-center gap-x-3">
-            <div className="px-3" title={`${connectionstate === "connected" ? "connected":"not connected"}`}>
+            <div className="px-3" title={`${connectionstate === "connected" ? "connected" : "not connected"}`}>
               {(connectionstate === "connected") ? <PiPlugsConnected className="text-slate-400" size={30}/>:<PiPlugsLight  className="text-slate-400" size={30} />}
             </div>
             <SecondaryButton
@@ -371,6 +370,7 @@ export default function Home() {
             connectToPeer={connectToPeer} 
             getPeerID={getPeerID} 
             disabled={peerconnection.current === undefined || remotepeerID === ""}
+            connecting={connectionstate == "connecting"}
           />
           { 
             connectionstateerror !== "" &&
