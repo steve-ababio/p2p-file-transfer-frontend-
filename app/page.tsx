@@ -303,9 +303,6 @@ export default function Home() {
     setRemotePeerID(remotepeerID);
     remotepeerIDref.current = remotepeerID;
   }
-  function abortFileTransfer(){
-    filereader.current!.abort();
-  }
   return (
     <div className="min-h-screen">
       <ToastContainer
@@ -402,7 +399,6 @@ export default function Home() {
             showfiletransferprogress && 
             <>
               <ProgressBar usertype={usertype} chunkedsizedelivered={chunkedsizedelivered}/>
-              <button onClick={abortFileTransfer} className="hover:shadow-blue-400/70 px-10 py-2 my-5 hover:shadow-md bg-blue-500 rounded-[5px] duration-300 text-white w-fit">Abort</button>
             </>
           } 
         </Section>   
